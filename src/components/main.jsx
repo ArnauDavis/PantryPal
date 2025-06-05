@@ -1,6 +1,7 @@
 
 import React from 'react'
 import IngredientsList from './IngredientsList'
+import Instructions from './Instructions'
 import ClaudeRecipe from './ClaudeRecipe'
 import { getRecipeFromMistral } from '../../ai' 
 
@@ -38,7 +39,8 @@ function Main(){
             </form>
             {ingredients.length > 0 ?
             <IngredientsList ingredients={ingredients} present={present}/> : null} 
-            {recipe && <ClaudeRecipe recipe={recipe}/>}
+            {ingredients.length < 4 ? <Instructions/> : null}
+            {recipe ? <ClaudeRecipe recipe={recipe}/> : null}
             
         </main>
     )
