@@ -44,6 +44,9 @@ body{
 
 main{
   padding: 30px 30px 10px;
+  display: flex;
+  flex-direction: column;
+  
 }
 
 
@@ -80,6 +83,19 @@ main{
 .add-ingredient-form > button::before{
   content: '+';
   margin-right: 5px;
+}
+
+.instructionsBox{
+  align-self: center;
+  max-width: 40rem;
+  border-radius: 8px;
+  background: #F0EFEB;
+  padding: 10px 28px;
+  margin-top: 15px;
+}
+
+.ingredientsContainer{
+  margin: 0 auto;
 }
 
 ul.ingredients-list {
