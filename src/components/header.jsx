@@ -5,7 +5,7 @@ function Header(){
         <header className="header">
             <img src ={chefLogo} alt = 'chefLogo' className = 'logo'/>
             <h1 className = 'headerTitle'>Pantry Pal</h1>
-            <span className='headerPhrase'>Artificial chef, authentic taste</span>
+            <span className='headerPhrase'>artificial chef, authentic taste</span>
         </header>
     )
 }
