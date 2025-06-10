@@ -21,5 +21,6 @@ export async function getRecipeFromMistral(ingredientsArr) {
         return response.choices[0].message.content
     } catch (err) {
         console.error(err.message)
+        return "AI API is down, please tell the owner of this app to change is API key (he'll be really grateful as he isn't actively monitoring this app)"
     }
 }
