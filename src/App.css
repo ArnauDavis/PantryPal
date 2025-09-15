@@ -106,8 +106,29 @@ ul.ingredients-list {
 ul.ingredients-list > li {
     color: #475467;
     line-height: 28px;
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
 }
 
+.removeButton {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background: #F0EFEB;
+    color: #6B7280;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.removeButton:hover {
+    background: #D17557;
+    color: #FAFAF8;
+}
 .get-recipe-container {
     display: flex;
     justify-content: space-between;
