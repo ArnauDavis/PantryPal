@@ -78,13 +78,8 @@ main{
   width: 150px;
   font-size: 0.875rem;
   font-weight: 500;
-
 }
 
-.add-ingredient-form > button::before{
-  content: '+';
-  margin-right: 5px;
-}
 
 .instructionsBox{
   align-self: center;
@@ -106,25 +101,29 @@ ul.ingredients-list {
 ul.ingredients-list > li {
     color: #475467;
     line-height: 28px;
-<<<<<<< HEAD
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
 }
 
 .removeButton {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: none;
-    background: none;
+    background: #F0EFEB;
     color: #6B7280;
-    font-size: 0.875rem;
     cursor: pointer;
-    padding: 0 5px;
+    margin-right: 10px;
 }
 
-=======
+.removeButton:hover {
+    background: #D17557;
+    color: #FAFAF8;
 }
-
->>>>>>> parent of 6cf0c74 (added button to delete items on list)
 .get-recipe-container {
     display: flex;
     justify-content: space-between;
@@ -132,6 +131,7 @@ ul.ingredients-list > li {
     border-radius: 8px;
     background: #F0EFEB;
     padding: 10px 28px;
+    gap: 10px;
 }
 
 .get-recipe-container h3 {
@@ -167,4 +167,16 @@ ul.ingredients-list > li {
 
 .suggested-recipe-container ul li, .suggested-recipe-container ol li {
     margin-bottom: 8px;
+}
+
+@media screen and (max-width: 705px){
+  .add-ingredient-form > button{
+    font-size: 0.75rem;
+  }
+
+  .get-recipe-container h3, .get-recipe-container p, .get-recipe-container button{
+    font-size: 0.85rem;
+    line-height: 20px;
+  }
+
 }
