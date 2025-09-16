@@ -178,7 +178,7 @@ ul.ingredients-list > li {
   }
   .get-recipe-container{
     justify-content: space-between;
-    padding: 5px 5px;
+    padding: 5px 15px;
     line-height: 5px;
   }
 
