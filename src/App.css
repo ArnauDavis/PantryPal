@@ -106,6 +106,7 @@ ul.ingredients-list {
 ul.ingredients-list > li {
     color: #475467;
     line-height: 28px;
+<<<<<<< HEAD
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -120,6 +121,10 @@ ul.ingredients-list > li {
     padding: 0 5px;
 }
 
+=======
+}
+
+>>>>>>> parent of 6cf0c74 (added button to delete items on list)
 .get-recipe-container {
     display: flex;
     justify-content: space-between;
