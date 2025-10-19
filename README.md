@@ -1,12 +1,26 @@
-# React + Vite
+# Pantry Pal
+Get recipe reccomendations from chef AI, 4 items are all you need to get started!
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Link to project:** https://pantry-pal-dusky.vercel.app/
 
-Currently, two official plugins are available:
+<div style="height: 200px; overflow: hidden;">
+    <img src="" style="height: auto; width: 100%; object-fit: cover; transform: translateY(-30px);" alt="pantryPal-gif"/>
+</div>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+## How It's Made:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+**Tech used:** CSS, React, HuggingFace API (Mixtral-8x7B)
+
+Users are greeted by my Instruction component, which prompts them to input at least 4 ingredients. From the moment the first ingredient is given, I leverage the power of React with conditional rendering based on logic from a ternary condition. The first introduces the Ingredients component, which keeps track of the ingredients shared so far and includes the option to delete each item separately in case of input errors or a change in direction desired by the user. Once at least 4 ingredients are received, the option to prompt the AI for a recipe is presented. Once satisfied with the list of ingredients, the list can be submitted as an array to Hugging Face, which hands the request to Mixtral-8x7B AI with the prompt `I have ${ingredientsString}. Please give me a recipe you'd recommend I make!`. I also included an error message in case I run out of API credits and need to refresh my key. Once the AI is finished and sends back a response, which is turned into markup thanks to the ReactMarkdown feature, and rendered in the ClaudeRecipe component
+
+
+## Optimizations
+
+The styling leaves much to be desired, but some would say a little bit of CSS goes a long way. Accounts could also be introduced to save previous recipes that users really enjoyed. I could also add a loading icon to indicate that submissions have been successfully received and that the response from the Hugging Face API is pending.
+
+
+## Lessons Learned:
+
+Messing around with the Hugging Face API was a great way to learn how to talk to AIs with code. I got a ton of practice passing props to various components, as well as using useState to dynamically update the list of ingredients rendered on the page.
+
