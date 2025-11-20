@@ -90,6 +90,10 @@ main{
   margin-top: 15px;
 }
 
+.loadingText{
+  text-align: center;
+}
+
 .ingredientsContainer{
   margin: 0 auto;
 }

@@ -14,7 +14,7 @@
             {props.ingredients.length >3 ? <div className="get-recipe-container" ref={props.recipeSectionRef}>
                 <h3>Ready for a recipe?</h3>
                 <p>Generate a recipe from your list of ingredients.</p>
-                <button onClick={props.present}>Get a recipe</button>
+                <button onClick={props.present} disabled={props.isLoading}>Get a recipe</button>
             </div> : null}
         </section>
         </>

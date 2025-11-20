@@ -4,11 +4,13 @@ import Instructions from './Instructions'
 import ClaudeRecipe from './ClaudeRecipe'
 import { getRecipeFromMistral } from '../../ai' 
 import { v4 as uuidv4 } from 'uuid';
+import LoadingIcon from './LoadingIcon'
 
 
 function Main(){
     const [ingredients, setIngredients] = React.useState([])
     const [recipe, setRecipe] = React.useState('')
+    const [isLoading, setIsLoading] = React.useState(false)
 
     const recipeSectionRef = React.createRef()
 
@@ -32,9 +34,24 @@ function Main(){
     }   
 
     async function present(){
-        const generatedRecipe = await getRecipeFromMistral(ingredients.map(ingredient => ingredient.name))
-        setRecipe(generatedRecipe)
+        setIsLoading(true)
+        try{
+            const generatedRecipe = await getRecipeFromMistral(ingredients.map(ingredient => ingredient.name))
+            setRecipe(generatedRecipe)
+        }catch(error){
+            console.log('Error fetching recipe', error)
+        }finally{
+            setIsLoading(false)
+        }
     }
+
+    const LoadingSpinner = () => (
+        <div className="loading-spinner">
+            <p>Generating your recipe...</p>
+            <img src={loadingWheel}/>
+        </div>
+    )
+
 
     return(
         <main>
@@ -48,9 +65,16 @@ function Main(){
                 <button>+ Add ingredient</button>
             </form>
             {ingredients.length > 0 ?
-            <IngredientsList ingredients={ingredients} present={present} recipeSectionRef={recipeSectionRef} remove={removeItem}/> : null} 
+            <IngredientsList ingredients={ingredients} present={present} recipeSectionRef={recipeSectionRef} remove={removeItem} isLoading={isLoading}/> : null} 
             {ingredients.length < 4 ? <Instructions/> : null}
-            {recipe ? <ClaudeRecipe recipe={recipe}/> : null}
+            {isLoading 
+                // Show spinner if loading
+                ? <LoadingIcon />
+                : recipe 
+                        // Show recipe if not loading and recipe exists
+                    ? <ClaudeRecipe recipe={recipe}/>
+                    : null // Show nothing otherwise
+            }
             
         </main>
     )
