@@ -9,18 +9,25 @@ const hf = new InferenceClient(import.meta.env.VITE_HF_ACCESS_TOKEN)
 
 export async function getRecipeFromMistral(ingredientsArr) {
     const ingredientsString = ingredientsArr.join(", ")
+    
     try {
         const response = await hf.chatCompletion({
-            model: "meta-llama/Llama-3.2-3B-Instruct:novita",
+            // Use the clean model ID (No suffix here)
+            model: "MiniMaxAI/MiniMax-M2.5",
+            
+            // Explicitly define the provider
+            provider: "novita", 
+            
             messages: [
                 { role: "system", content: SYSTEM_PROMPT },
                 { role: "user", content: `I have ${ingredientsString}. Please give me a recipe you'd recommend I make!` },
             ],
             max_tokens: 1024,
-        })
+        });
+
         return response.choices[0].message.content
     } catch (err) {
-        console.error(err.message)
+        console.error("Inference Error:", err.message)
         return "AI API is down, please tell the owner of this app to change the API key (he'll be really grateful as he isn't actively monitoring this app)"
     }
 }
