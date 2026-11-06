@@ -1,5 +1,5 @@
 # Pantry Pal
-Get recipe reccomendations from chef AI, 4 items are all you need to get started!
+Turn the ingredients you already have into your next meal with AI-powered recipe recommendations.
 
 **Link to project:** https://pantry-pal-dusky.vercel.app/
 
@@ -7,20 +7,74 @@ Get recipe reccomendations from chef AI, 4 items are all you need to get started
     <img src="pantryPal-gif.gif" style="height: auto; width: 100%; object-fit: cover; transform: translateY(-30px);" alt="pantryPal-gif"/>
 </div>
 
+**Tech used:** CSS, React, HuggingFace API (Mixtral-8x7B)
+
+<br>
 
 ## How It's Made:
 
-**Tech used:** CSS, React, HuggingFace API (Mixtral-8x7B)
+Pantry Pal is an AI-powered recipe generator that helps users discover meals they can make with ingredients they already have. Users enter at least four ingredients, submit their list to an AI model, and receive a recipe recommendation based on their available ingredients.
 
-Users are greeted by my Instruction component, which prompts them to input at least 4 ingredients. From the moment the first ingredient is given, I leverage the power of React with conditional rendering based on logic from a ternary condition. The first introduces the Ingredients component, which keeps track of the ingredients shared so far and includes the option to delete each item separately in case of input errors or a change in direction desired by the user. Once at least 4 ingredients are received, the option to prompt the AI for a recipe is presented. Once satisfied with the list of ingredients, the list can be submitted as an array to Hugging Face, which hands the request to Mixtral-8x7B AI with the prompt `I have ${ingredientsString}. Please give me a recipe you'd recommend I make!`. I also included an error message in case I run out of API credits and need to refresh my key. Once the AI is finished, it sends back a response, which is turned into markup, thanks to the ReactMarkdown feature, and is rendered in the ClaudeRecipe component. Recently added a loading state and changed the present function to a try function that lets me leverage the power of 'finally' to change the state of loading regardless if the claude api response is successful. Also now that I am keeping track of the loading state, I can prevent requests for new recipes from being sent while the current request is loading. This will prevent people using up all my api credits while they wait for a response and spam the button, or be confused when the recipe they like disappears and is replaced with a new one. 
+>Managing Ingredients with React
 
+I used React state to keep track of the ingredients entered by the user and dynamically update the interface as the list changes.
+
+Each ingredient can be individually removed, allowing users to correct mistakes or adjust their list before requesting a recipe. Conditional rendering determines which components and options are displayed depending on the number of ingredients provided.
+
+Once the user has entered at least four ingredients, the option to generate a recipe becomes available.
+
+<br>
+
+>Integrating the Hugging Face API
+
+I integrated the Hugging Face API to send the user's ingredients to the Mixtral-8x7B model. The ingredients are combined into a prompt asking the model to recommend a recipe based on the available items.
+
+The API response is then passed to React Markdown, allowing the generated recipe to be rendered as formatted content rather than plain text.
+
+I also implemented error handling to account for unsuccessful API requests, including situations where the available API credits have been exhausted.
+
+<br>
+
+>Managing Asynchronous Requests
+
+One improvement I made was introducing a loading state to manage the time between submitting ingredients and receiving the AI-generated recipe.
+
+I used try, catch, and finally to handle the API request and ensure the loading state is reset regardless of whether the request succeeds or fails.
+
+While a request is processing, the recipe generation button is disabled. This prevents users from repeatedly submitting requests before the previous one has finished, helping avoid unnecessary API usage and confusing interface behavior.
+
+<br>
 
 ## Optimizations
+- Introduce user accounts so people can save and revisit recipes they enjoyed.
+- Improve the overall styling and visual presentation.
+- Explore ways to improve the consistency and usefulness of AI-generated recipe recommendations.
+- *update: I added a loading icon, how cool!*
 
-The styling leaves much to be desired, but some would say a little bit of CSS goes a long way. Accounts could also be introduced to save previous recipes that users really enjoyed. A loading icon to indicate that submissions have been successfully received and that the response from the Hugging Face API is pending would also be a nice addition. *update: I added a loading icon, how cool!*
+<br>
 
 
 ## Lessons Learned:
 
-Messing around with the Hugging Face API was a great way to learn how to talk to AIs with code. I got a ton of practice passing props to various components, as well as practice using useState to dynamically update the list of ingredients rendered on the page.
+>Working with AI APIs
+
+Integrating the Hugging Face API gave me hands-on experience communicating with an AI model through code. I learned how to construct prompts using user-provided information, submit requests, and handle the responses returned by an external AI service.
+
+<br>
+
+>Managing Asynchronous Operations
+
+I gained experience managing asynchronous API requests and handling different outcomes. Using try, catch, and finally helped me understand how to manage loading states and ensure the interface responds appropriately whether a request succeeds or fails.
+
+<br>
+
+>Dynamic Rendering with React
+
+I got additional practice using React state and passing props between components. Managing the ingredient list through state allowed me to dynamically add and remove ingredients while keeping the interface synchronized with the user's input.
+
+<br>
+
+>Rendering Markdown with React
+
+I learned how to use React Markdown to transform the formatted text returned by the AI model into readable content within the application. This allowed generated recipes to display with proper formatting rather than appearing as an unstructured block of text.
 
