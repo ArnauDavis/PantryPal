@@ -1,33 +1,53 @@
-import { InferenceClient } from '@huggingface/inference'
-import dotenv from 'dotenv';
+import Groq from "groq-sdk";
 
-const SYSTEM_PROMPT = `
-You are an assistant that receives a list of ingredients that a user has and suggests a recipe they could make with some or all of those ingredients. You don't need to use every ingredient they mention in your recipe. The recipe can include additional ingredients they didn't mention, but try not to include too many extra ingredients. Do not include links to other sites. Respond giving the recipe. Format your response in markdown to make it easier to render to a web page
-`
+export async function getRecipeFromMistral(input) {
+    const userPrompt = Array.isArray(input) 
+        ? `I have ${input.join(", ")}. Please give me a recipe you'd recommend I make!`
+        : input;
 
-const hf = new InferenceClient(import.meta.env.VITE_HF_ACCESS_TOKEN)
+    // Check if we are running locally in Vite dev mode
+    if (import.meta.env.DEV) {
+        try {
+            // Local fallback: Call Groq directly using the Vite env variable
+            const groq = new Groq({ 
+                apiKey: import.meta.env.VITE_GROQ_API_KEY, 
+                dangerouslyAllowBrowser: true 
+            });
 
-export async function getRecipeFromMistral(ingredientsArr) {
-    const ingredientsString = ingredientsArr.join(", ")
+            const completion = await groq.chat.completions.create({
+                model: "openai/gpt-oss-20b",
+                messages: [
+                    { role: "system", content: "You are an assistant that suggests a recipe using some or all of the user's ingredients. Format your response in markdown." },
+                    { role: "user", content: userPrompt },
+                ],
+                max_tokens: 1024,
+            });
+
+            return completion.choices[0]?.message?.content || "No recipe generated.";
+        } catch (err) {
+            console.error("Local Groq Error:", err.message);
+            return "Local AI error. Check your VITE_GROQ_API_KEY in your local .env file.";
+        }
+    } 
     
+    // Production mode: Call your secure Vercel serverless function
     try {
-        const response = await hf.chatCompletion({
-            // Use the clean model ID (No suffix here)
-            model: "MiniMaxAI/MiniMax-M2.5",
-            
-            // Explicitly define the provider
-            provider: "novita", 
-            
-            messages: [
-                { role: "system", content: SYSTEM_PROMPT },
-                { role: "user", content: `I have ${ingredientsString}. Please give me a recipe you'd recommend I make!` },
-            ],
-            max_tokens: 1024,
+        const response = await fetch('/api/recipe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ input }),
         });
 
-        return response.choices[0].message.content
+        const text = await response.text();
+        const data = text ? JSON.parse(text) : {};
+
+        if (!response.ok) {
+            throw new Error(data.error || 'Failed to fetch recipe');
+        }
+
+        return data.recipe;
     } catch (err) {
-        console.error("Inference Error:", err.message)
-        return "AI API is down, please tell the owner of this app to change the API key (he'll be really grateful as he isn't actively monitoring this app)"
+        console.error("Frontend API Error:", err.message);
+        return "AI API is currently unavailable. Please try again later.";
     }
 }

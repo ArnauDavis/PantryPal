@@ -1,11 +1,8 @@
-
-
 function Instructions(){
     return(
-        <section className="instructionsBox">
-            <p>Hello, welcome to my app, please add at least 4 ingredients to get the party started! Once you request a recipe, please give the chef about 20ish seconds to respond, he's paid hourly and milks the clock.</p>
-            
-        </section>
+        <div className="bg-cyan-300 dark:bg-zinc-800 border-4 border-slate-900 dark:border-white brutalist-shadow p-6 text-sm font-bold font-['Space_Grotesk']">
+            <p>👋 WARNING: Add at least <strong className="underline">4 ingredients</strong> or the chef will stare blankly at you. Once requested, please give him about 20 seconds, he's paid hourly and milks the clock.</p>
+        </div>
     )
 }
 
