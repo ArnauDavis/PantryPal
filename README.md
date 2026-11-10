@@ -8,7 +8,7 @@ Turn the ingredients you already have into your next meal with AI powered recipe
 </div>
 
 
-**Tech used:** CSS, React, Vercel Serverless Functions, Groq SDK (`openai/gpt-oss-20b`)
+**Tech used:** React, Tailwind, Vercel Serverless Functions, Groq SDK (`openai/gpt-oss-20b`)
 
 <br>
 
