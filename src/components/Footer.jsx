@@ -8,7 +8,8 @@ function Footer() {
                         <span className="w-3 h-3 bg-emerald-400 border-2 border-slate-900 dark:border-white animate-pulse"></span>
                         <span className="font-bold text-sm uppercase tracking-wider">Pantry Pal v2.0</span>
                     </div>
-                    <p className="text-xs font-semibold opacity-75">Artificial Chef, Authentic Taste. Paid hourly, milking the clock.</p>
+                    <p className="text-xs font-semibold opacity-75">Artificial Chef, Authentic Taste.</p>
+                    <p className="text-xs font-semibold opacity-75">Paid hourly & milking the clock.</p>
                 </div>
 
                 {/* Individual boxes for LIVE, LAUGH, AI */}

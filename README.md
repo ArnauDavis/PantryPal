@@ -4,8 +4,9 @@ Turn the ingredients you already have into your next meal with AI powered recipe
 **Link to project:** https://pantry-pal-dusky.vercel.app/
 
 <div style="height: 200px; overflow: hidden;">
-    <img src="pantryPal-gif.gif" style="height: auto; width: 100%; object-fit: cover; transform: translateY(-30px);" alt="pantryPal-gif"/>
+    <img src="pantryPal2.gif" style="height: auto; width: 100%; object-fit: cover; transform: translateY(-30px);" alt="pantryPal-gif"/>
 </div>
+
 
 **Tech used:** CSS, React, Vercel Serverless Functions, Groq SDK (`openai/gpt-oss-20b`)
 
@@ -25,7 +26,7 @@ Each ingredient can be individually removed so users can adjust their list on th
 
 >Migrating to Groq & Securing Production with Vercel Serverless Functions
 
-Originally powered by Hugging Face, I migrated my inference engine to Groq to leverage lightning fast LPU infrastructure. Early on, running AI calls straight from the frontend risked exposing API keys and hitting browser security walls. I do not build fragile systems here! 
+Originally powered by Hugging Face, I migrated my inference engine to Groq to leverage lightning fast LPU infrastructure. Early on, running AI calls straight from the frontend risked exposing API keys and hitting browser security walls.
 
 I engineered a secure serverless proxy architecture:
 - **The Client:** Frontend code sends the ingredient payload safely to an internal `/api/recipe` endpoint.
